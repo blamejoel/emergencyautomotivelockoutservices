@@ -1,7 +1,21 @@
 {
-  "name": "emergencyautomotivelockoutservice-com",
-  "short_name": "emergencyautomotivelockoutservice-com",
-  "description": "Emergency Automotive Lockout Service",
+  "name": "Emergency Automotive Lockout Services",
+  "short_name": "Emergency Lockout",
+  "description": "Emergency Automotive Lockout Services",
   "start_url": "/",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
   "display": "standalone"
 }

@@ -1,0 +1,392 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-toolbar/app-toolbar.html">
+
+<link rel="import" href="../../bower_components/app-layout/demo/sample-content.html">
+
+<dom-module id="x-app">
+
+  <template>
+
+    <style>
+
+      a {
+        text-decoration: none;
+        font-size: inherit;
+        color: inherit;
+      }
+
+      .toolbar {
+        @apply(--layout-horizontal);
+        @apply(--layout-end-justified);
+        background-color: rgba(255, 255, 255, 0.95);
+        color: rgba(0,0,0,0.8);
+      }
+
+      .tabs {
+        height: 100%;
+        @apply(--layout-horizontal);
+      }
+
+      .tabs > a {
+        @apply(--layout-vertical);
+        @apply(--layout-center-center);
+        margin: 12px 16px 12px;
+        /*border-bottom: 1px solid #222;*/
+        font-size: 0.7em;
+      }
+
+      header {
+        @apply(--layout-vertical);
+        @apply(--layout-center-center);
+        height: calc(100vh - 64px);
+        padding: 0 16px;
+        background: url('../../images/lockout.png') gray no-repeat center center;
+        /*background-image: url('//app-layout-assets.appspot.com/assets/landing-page/glass_explorer_food_2.png');*/
+        backgrond-repeat: no-repeat;
+        background-size: cover;
+        color: rgba(255,255,255,1.0);
+        text-align: center;
+      }
+
+      header > h2 {
+        font-size: 4em;
+        font-weight: bold;
+        margin: 0;
+        z-index: 1;
+      }
+
+      header > p {
+        font-size: 3em;
+        z-index: 1;
+      }
+
+      header > .tagline {
+        font-size: 2em;
+        z-index: 1;
+      }
+
+      header:before {
+        content: "";
+        background-color: #000000;
+        opacity: 0.4;
+        z-index: 0;
+        height: calc(100vh - 64px);
+        width: 100%;
+        position: absolute;
+        padding: 0;
+        margin: 0;
+      }
+
+      section {
+        padding: 88px 16px;
+        color: rgba(0,0,0,0.8);
+        border-bottom: 1px solid rgba(0,0,0,0.2);
+      }
+
+      #contact a {
+        font-size: 1.2em;
+        font-weight: bold;
+      }
+
+      footer {
+        text-align: center;
+        color: rgba(0,0,0,0.8);
+        width: 100%;
+        margin: 30px 0px;
+      }
+
+      ul.service-area-list {
+        padding: 0;
+        margin: 10px 20px;
+      }
+      ul.service-area-list > li {
+        display: inline;
+      }
+
+      ul.service-area-list > li:not(:first-child):before {
+        content: "- ";
+      }
+
+      span.service-area-list > span {
+        font-weight: bold;
+      }
+
+      .site-title {
+        position: absolute;
+        left: 20px;
+        color: rgba(0,0,0,0.8);
+      }
+
+      .site-title > img {
+        position: relative;
+        top: 6px;
+        width: 25px;
+        opacity: 0.8;
+      }
+
+      .container {
+        @apply(--layout-horizontal);
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .container > * {
+        @apply(--layout-flex);
+      }
+
+      .container img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .container h3 {
+        font-size: 32px;
+        font-weight: 300;
+        margin: 24px 0;
+      }
+
+      .container p {
+        line-height: 1.5;
+      }
+
+      .advisory {
+        color: red;
+        font-size: 0.8em;
+        font-weight: bold;
+        opacity: 0.8;
+      }
+
+      .cost {
+        font-size: 1.4em;
+        font-weight: bold;
+        padding: 0px 8px;
+      }
+
+      .support-image {
+        width: 100%;
+        opacity: 0.7;
+        text-align: center;
+      }
+
+      .support-image > img {
+        width: 50%;
+      }
+
+      @media (min-width: 620px) {
+        .d-nav {
+          display: none;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .tabs {
+          display: none;
+        }
+        ul.d-nav {
+          list-style-type: none;
+          margin: 0;
+          padding: 10px;
+          text-align: center;
+        }
+        ul.d-nav > li {
+          margin: 10px;
+          font-size: 1.2em;
+          padding: 5px;
+        }
+        li > a {
+          color: rgba(0,0,0,0.8);
+          outline: none;
+        }
+        .site-title {
+          font-size: 0.8em;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          @apply(--layout-vertical);
+        }
+      }
+
+      @media (max-width: 375px) {
+        header > h2 {
+          font-size: 3em;
+        }
+        header > p {
+          font-size: 2em;
+        }
+        header > .tagline {
+          font-size: 1.5em;
+        }
+        .site-title {
+          font-size: 0.8em;
+        }
+        .site-title > img {
+          display: none;
+        }
+      }
+
+      @media (max-width: 320px) {
+        .site-title {
+          font-size: 0.65em;
+        }
+      }
+
+    </style>
+
+    <app-drawer-layout>
+      <app-drawer class="d-nav" align="end">
+        <ul class="d-nav">
+          <li><a href="#about" drawer-toggle>ABOUT</a></li>
+          <li><a href="#services" drawer-toggle>SERVICES</a></li>
+          <li><a href="#contact" drawer-toggle>CONTACT</a></li>
+        </ul>
+      </app-drawer>
+
+      <app-header-layout>
+
+        <app-header fixed effects="waterfall">
+
+          <app-toolbar class="toolbar">
+            <div class="site-title">
+              <img src="../../images/ic_local_hospital_black_48px.svg">
+              Emergency Automotive Lockout Services
+            </div>
+            <paper-icon-button icon="menu" drawer-toggle class="d-nav"></paper-icon-button>
+            <div class="tabs">
+              <a href="#about">ABOUT</a>
+              <a href="#services">SERVICES</a>
+              <a href="#contact">CONTACT</a>
+            </div>
+          </app-toolbar>
+
+        </app-header>
+
+        <header>
+            <h2>OH NO!</h2>
+            <p>I locked my keys in my car!</p>
+
+            <p class="tagline">Give <em><u>us</u></em> a call. We're here to 
+            unlock your vehicle quickly, safely, and affordably</p>
+        </header>
+
+        <section id="about">
+          <div class="container">
+            <div class="support-image">
+              <img src="../../images/ic_info_outline_black_48px.svg">
+            </div>
+            <div>
+              <h3>About Us</h3>
+
+              <p>We're cheaper than that window you're thinking of breaking out and 
+              faster than AAA by hours.</p>
+
+              <p>We serve the areas of: 
+              <span class="service-area-list">
+                <span>Cottonwood</span>,
+                <span>Sedona</span>,
+                <span>Jerome</span>,
+                <span>Clarkdale</span>,
+                <span>Cornville</span>,
+                <span>Camp Verde</span>, and
+                <span>Village of Oak Creek</span>.
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <section id="services">
+          <div class="container">
+            <div class="support-image">
+              <img src="../../images/ic_local_offer_black_48px.svg">
+            </div>
+            <div>
+              <h3>Services</h3>
+              <p>
+              Our fee is <span class="cost">$80</span> for most vehicles and 
+              we cover the entire Verde Valley.
+              </p>
+
+              <p class="advisory">
+              NOTE!! This is not a locksmith. We do not "pick" locks, make 
+              keys or provide any services other than unlocking your vehicle 
+              doors.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact">
+          <div class="container">
+            <div class="support-image">
+              <img src="../../images/ic_contact_phone_black_48px.svg">
+            </div>
+            <div itemscope itemtype="http://schema.org/LocalBusiness">
+              <h3>Contact</h3>
+              <p>
+              <span itemprop="name">
+                <strong>Emergency Automotive Lockout Services</strong>
+              </span>
+              <br>
+              Jack Crow (Owner)
+              </p>
+              <div>
+                <span itemprop="telephone"></span>
+                <a href="tel:+19288219797">928.821.9797</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer>
+          <div>Serving</div>
+          <div>
+            <ul class="service-area-list">
+              <li>Cottonwood</li>
+              <li>Sedona</li>
+              <li>Jerome</li>
+              <li>Clarkdale</li>
+              <li>Cornville</li>
+              <li>Camp Verde</li>
+              <li>Village of Oak Creek</li>
+            </ul>
+          </div>
+        </footer>
+
+      </app-header-layout>
+    </app-drawer-layout>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'x-app'
+
+    });
+
+  </script>
+
+</dom-module>
