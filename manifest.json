@@ -1,0 +1,7 @@
+{
+  "name": "emergencyautomotivelockoutservice-com",
+  "short_name": "emergencyautomotivelockoutservice-com",
+  "description": "Emergency Automotive Lockout Service",
+  "start_url": "/",
+  "display": "standalone"
+}
