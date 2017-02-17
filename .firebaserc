@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "prod": "emergency-lockout",
+    "default": "emergency-lockout"
+  }
+}

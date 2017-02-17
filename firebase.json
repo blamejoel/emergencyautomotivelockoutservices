@@ -1,19 +1,19 @@
 {
-  "rewrites": [
-    {
-      "source": "!/__/**",
-      "destination": "/index.html"
-    },
-    {
-      "source": "**/!(*.js|*.html|*.css|*.json|*.svg|*.png|*.jpg|*.jpeg)",
-      "destination": "/index.html"
-    }
-  ],
-  "firebase": "emergency-lockout",
-  "public": "build/unbundled",
-  "ignore": [
-    "firebase.json",
-    "**/.*",
-    "**/node_modules/**"
-  ]
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "hosting": {
+    "public": "build/unbundled",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
 }
